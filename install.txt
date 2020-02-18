@@ -1,0 +1,17 @@
+# Install
+- npm install bootstrap@4.0.0 --save
+- npm install jquery --save
+- npm install datatables.net --save
+- npm install datatables.net-dt --save
+- npm install angular-datatables --save
+- npm install @types/jquery --save-dev
+- npm install @types/datatables.net --save-dev
+- npm install popper.js --save
+- npm install datatables.net-bs4 --save
+- npm install datatables.net-responsive --save
+- npm install datatables.net-responsive-dt --save
+- npm install datatables.net-responsive-bs4 --save
+- npm i --save select2@4.0.3
+- npm install --save select2-bootstrap4-theme@1.0.0
+- npm install ngx-bootstrap --save
+

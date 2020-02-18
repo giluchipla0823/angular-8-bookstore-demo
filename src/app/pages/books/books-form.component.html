@@ -1,0 +1,170 @@
+<div class="modal-header">
+    <h4 class="modal-title pull-left">{{ modalRef.content.title }}</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+<form id="frm_books" name="frm_books" [formGroup]="form.container">
+    <div class="form-group">
+        <label for="title">Title</label>
+        <input type="text"
+                id="title"
+                name="title"
+                formControlName="title"	
+                class="form-control"
+                required="true"
+                [ngClass]="{'is-invalid': (!f.title.pristine || form.submitted) && f.title.errors }" />
+        <div *ngIf="(!f.title.pristine || form.submitted) && f.title.errors" 
+                class="invalid-feedback">
+            <span *ngIf="f.title.errors.required">Required field</span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="summary">Summary</label>
+        <textarea
+            id="summary"
+            name="summary"
+            formControlName="summary"	
+            required="true"
+            [ngClass]="{'is-invalid': (!f.summary.pristine || form.submitted) && f.summary.errors }"
+            class="form-control"></textarea>
+
+        <div *ngIf="(!f.summary.pristine || form.submitted) && f.summary.errors"
+                class="invalid-feedback">
+            <span *ngIf="f.summary.errors.required">Required field</span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="description">Description</label>
+        <textarea
+            id="description"
+            name="description"
+            formControlName="description"	
+            required="true"
+            [ngClass]="{'is-invalid': (!f.description.pristine || form.submitted) && f.description.errors }"
+            class="form-control"></textarea>
+
+        <div *ngIf="(!f.description.pristine || form.submitted) && f.description.errors"
+                class="invalid-feedback">
+            <span *ngIf="f.description.errors.required">Required field</span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="row">
+            <div class="col-md-6">
+                <label for="quantity">Quantity</label>
+                <input 
+                    type="text"
+                    id="quantity"
+                    name="quantity"
+                    formControlName="quantity"	
+                    class="form-control"
+                    required="true"
+                    [ngClass]="{'is-invalid': (!f.quantity.pristine || form.submitted) && f.quantity.errors }" />
+                <div *ngIf="(!f.quantity.pristine || form.submitted) && f.quantity.errors" 
+                    class="invalid-feedback">
+                    <span *ngIf="f.quantity.errors.required">Required field</span>
+                    <span *ngIf="f.quantity.errors.pattern">Field must contain only numbers</span>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <label for="price">Price</label>
+                <input 
+                    type="text"
+                    id="price"
+                    name="price"
+                    formControlName="price"	
+                    class="form-control"
+                    required="true"
+                    [ngClass]="{'is-invalid': (!f.price.pristine || form.submitted) && f.price.errors }" />
+                <div *ngIf="(!f.price.pristine || form.submitted) && f.price.errors" 
+                    class="invalid-feedback">
+                    <span *ngIf="f.price.errors.required">Required field</span>
+                    <span *ngIf="f.price.errors.pattern">Field must contain only numbers with two decimals</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group" [ngClass]="{'has-error': (!f.author_id.pristine || form.submitted) && f.author_id.errors }">
+        <label for="author">Author</label>
+
+        <div *ngIf="authors.data.length === 0">
+            <select2 id="author"
+                        name="author"
+                        [options]="authors.options"
+                        required="true"
+                        [disabled]="authors.disabled">
+                <option></option>
+            </select2>
+        </div>
+
+        <div *ngIf="authors.data.length > 0">
+            <select2 id="author"
+                        name="author"    
+                        [data]="authors.data"
+                        [disabled]="authors.disabled" 
+                        [options]="authors.options"
+                        [value]="authors.selected"
+                        required="true"
+                        (valueChanged)="[eventChangeSelect($event, 'author_id'), authors.selected = $event.value]">
+                <option></option>
+            </select2>
+        </div>
+
+        <div *ngIf="(!f.author_id.pristine || form.submitted) && f.author_id.errors"
+                class="invalid-feedback">
+            <span *ngIf="f.author_id.errors.required">Required field</span>
+        </div>
+    </div>
+
+    <div class="form-group" 
+            [ngClass]="{'has-error': (!f.genres.pristine || form.submitted) && f.genres.errors }">
+        <label for="genres">Genres</label>
+
+        <div *ngIf="genres.data.length === 0">
+            <select2 [data]="genres.data"
+                        id="genres"
+                        name="genres"
+                        [disabled]="genres.disabled" 
+                        [options]="genres.options">
+            </select2>
+        </div>
+
+        <div *ngIf="genres.data.length > 0">
+            <select2 [data]="genres.data"
+                        id="genres"
+                        name="genres"
+                        [disabled]="genres.disabled" 
+                        [options]="genres.options"
+                        [value]="genres.selected"
+                        (valueChanged)="[eventChangeSelect($event, 'genres'), genres.selected = $event.value]"
+                        required="true">
+            </select2>
+        </div>
+
+        <div *ngIf="(!f.genres.pristine || form.submitted) && f.genres.errors"
+                class="invalid-feedback">
+            <span *ngIf="f.genres.errors.required">Required field</span>
+        </div>
+    </div>
+</form>
+</div>
+<div class="modal-footer">
+    <button type="button" 
+            class="btn btn-primary" 
+            [disabled]="form.container.invalid || form.isSaving"
+            (click)="accept()">
+        <i class="fa" 
+           [ngClass]="{true: 'fa-circle-o-notch fa-spin', false: 'fa-save'}[form.isSaving]"></i> 
+        Save
+    </button>
+    <button type="button" 
+            class="btn btn-secondary" 
+            (click)="close()">Cerrar</button>
+</div>

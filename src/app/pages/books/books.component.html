@@ -1,0 +1,43 @@
+<h1>Books</h1>
+<hr />
+
+<app-books-search (updateForm)="updateSearchForm($event)"></app-books-search>
+
+<div class="card card-datatables">
+    <div class="card-header">
+        <div class="float-left">
+            <h5>List of the Books</h5>
+        </div>
+        <div class="float-right">
+            <div class="float-left">
+                <button type="button"
+                        (click)="openModal({})"    
+                        class="btn btn-success mr-3">
+                    Create
+                </button>
+            </div>
+
+            <div class="float-left dt-select-length">
+
+            </div>
+        </div>
+    </div>
+    <div class="card-body">
+        <table #dt
+               id="dt-example" 
+               class="table table-striped table-bordered" style="width:100%"></table>
+    </div>
+    <div class="card-footer text-muted">
+        <div class="row">
+            <div class="col-md-5 col-sm-12 dt-info-results"></div>
+            <div class="col-md-7 col-sm-12 dt-pagination"></div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<ng-template #template>
+  <app-books-form 
+    (reloadData)="reloadData($event)"
+    [modalRef]="modalRef"></app-books-form>
+</ng-template>

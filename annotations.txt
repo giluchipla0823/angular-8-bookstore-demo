@@ -1,0 +1,4 @@
+# BD: db_laravel_bookstore
+# Login credentials
+- email: webmaster@gmail.com
+- password: secret
