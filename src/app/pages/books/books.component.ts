@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, TemplateRef } from '@angular/core';
 import { BooksService } from '../../services/books.service';
 import { ContainerDatatables } from '../../interfaces/container-datatables.interface';
-import { Api } from '../../interfaces/api.interface';
 import { Datatables as DatatablesUtils } from '../../utils/Datatables';
 import { Author } from '../../models/author.model';
 import { Book } from '../../models/book.model';
@@ -46,22 +45,20 @@ export class BooksComponent implements OnInit, AfterViewInit {
    this.nested.dtInstance = this.nested.table.DataTable(this.nested.dtOptions);
 
    this.nested.table
-      .on('click', '.opt-edit', (e: any) => this.editEvent(e))
-      .on('click', '.opt-delete', (e: any) => this.deleteEvent(e));
+      .on('click', '.opt-edit', (e: JQuery.EventBase) => this.editEvent(e))
+      .on('click', '.opt-delete', (e: JQuery.EventBase) => this.deleteEvent(e));
   }
 
-  editEvent(e: any) {
+  editEvent(e: JQuery.EventBase): void {
     const id: number = e.target.dataset.id;
 
     this.getBook(id);
   }
 
-  getBook(id: number) {
+  getBook(id: number): void {
     this.booksService
         .getBook(id, {includes: 'genres'})
-        .subscribe((response: Api) => {
-            this.openModal(response.data);
-        });
+        .subscribe(response => this.openModal(response.data));
   }
 
   loadDatatables(): void {
@@ -160,7 +157,7 @@ export class BooksComponent implements OnInit, AfterViewInit {
 
   getBooks(params: any, callback: any) {
     return this.booksService.getBooks(params)
-               .subscribe((response: Api) => {
+               .subscribe(response => {
                   const data: any = response.data;
 
                   callback({
@@ -182,7 +179,7 @@ export class BooksComponent implements OnInit, AfterViewInit {
     this.reloadData(true);
   }
 
-  deleteEvent(e: any) {
+  deleteEvent(e: JQuery.EventBase): void {
       const id: number = e.target.dataset.id;
 
       Swal.fire({
@@ -191,7 +188,7 @@ export class BooksComponent implements OnInit, AfterViewInit {
         type: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
+        cancelButtonColor: '#d33'
       }).then(confirm => {
         if (confirm.value) {
           this.deleteBook(id);
@@ -202,7 +199,7 @@ export class BooksComponent implements OnInit, AfterViewInit {
   deleteBook(id: number): void {
     this.booksService
         .deleteBook(id)
-        .subscribe((response: Api) => {
+        .subscribe(response => {
             Swal.fire(
               'Success',
               response.message,
@@ -213,7 +210,7 @@ export class BooksComponent implements OnInit, AfterViewInit {
         });
   }
 
-  openModal(data: any) {
+  openModal(data: any): void {
     this.modalRef = this.modalService.show(
       this.template,
       {

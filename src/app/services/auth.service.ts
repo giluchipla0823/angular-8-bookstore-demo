@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 
 import { map } from 'rxjs/operators';
+import { Api } from '../interfaces/api.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,6 @@ import { map } from 'rxjs/operators';
 export class AuthService {
 
   BASE_URL: string = 'http://127.0.0.1:8000/api/';
-
   token: string;
   user: any;
   private authenticated: boolean = false;
@@ -19,15 +19,15 @@ export class AuthService {
     this.loadStorage();
   }
 
-  login(username: string, password: string): Observable<any> {
-    return this.http.post(`${this.BASE_URL}login`, {email: username, password})
+  login(username: string, password: string): Observable<Api> {
+    return this.http.post<Api>(`${this.BASE_URL}login`, {email: username, password})
               .pipe(
-                map((response: any) => {
+                map(response => {
                   this.saveStorage(response.data);
 
                   return response;
                 })
-              )
+           );
   }
 
   saveStorage(data: any) {

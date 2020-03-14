@@ -1,25 +1,27 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { BaseService } from './base.service';
+import { Api } from '../interfaces/api.interface';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BooksService extends BaseService {
 
-  getBooks(params?: any): Observable<any> {
+  getBooks(params?: any): Observable<Api> {
       const queryParams = this.resolveQueryParams(params);
 
-      return this.http.get(`${this.BASE_URL}v1/books${queryParams}`);
+      return this.http.get<Api>(`${this.BASE_URL}v1/books${queryParams}`);
   }
 
-  getBook(id: number, params?: any): Observable<any> {
+
+  getBook(id: number, params?: any): Observable<Api> {
     const queryParams = this.resolveQueryParams(params);
 
-    return this.http.get(`${this.BASE_URL}v1/books/${id}${queryParams}`);
+    return this.http.get<Api>(`${this.BASE_URL}v1/books/${id}${queryParams}`);
   }
 
-  createOrUpdateBook(data: any, id?: number): Observable<any> {
+  createOrUpdateBook(data: any, id?: number): Observable<Api> {
     if (id) {
       return this.updatedBook(data, id);
     }
@@ -27,15 +29,15 @@ export class BooksService extends BaseService {
     return this.createBook(data);
   }
 
-  createBook(data: any): Observable<any> {
-    return this.http.post(`${this.BASE_URL}v1/books`, data);
+  createBook(data: any): Observable<Api> {
+    return this.http.post<Api>(`${this.BASE_URL}v1/books`, data);
   }
 
-  updatedBook(data: any, id: number): Observable<any> {
-    return this.http.put(`${this.BASE_URL}v1/books/${id}`, data);
+  updatedBook(data: any, id: number): Observable<Api> {
+    return this.http.put<Api>(`${this.BASE_URL}v1/books/${id}`, data);
   }
 
-  deleteBook(id: number): Observable<any> {
-    return this.http.delete(`${this.BASE_URL}v1/books/${id}`);
+  deleteBook(id: number): Observable<Api> {
+    return this.http.delete<Api>(`${this.BASE_URL}v1/books/${id}`);
   }
 }
