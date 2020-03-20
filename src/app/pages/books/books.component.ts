@@ -1,12 +1,11 @@
 import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, TemplateRef } from '@angular/core';
 import { BooksService } from '../../services/books.service';
 import { ContainerDatatables } from '../../interfaces/container-datatables.interface';
-import { Datatables as DatatablesUtils } from '../../utils/Datatables';
-import { Author } from '../../models/author.model';
-import { Book } from '../../models/book.model';
+import { DatatablesUtils } from '../../utils/DatatablesUtils';
+import { Author, Book} from '../../models/index.model';
 import { Form } from '../../interfaces/form.interface';
-import Swal from 'sweetalert2';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap';
+import Swal from 'sweetalert2';
 
 declare var $: any;
 

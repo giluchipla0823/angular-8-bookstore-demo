@@ -9,7 +9,7 @@ import {
   HttpEvent
 } from '@angular/common/http';
 import { ValidationErrors } from '../interfaces/validation-errors.interface';
-import { Response } from '../utils/Response';
+import { StatusCodes } from '../utils/StatusCodes';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { Api } from '../interfaces/api.interface';
@@ -41,11 +41,11 @@ export class HttpErrorInterceptor implements HttpInterceptor {
       const error: Api = err.error;
       const status: number = err.status;
 
-      if (status === Response.HTTP_UNAUTHORIZED) {
+      if (status === StatusCodes.HTTP_UNAUTHORIZED) {
         return this.resolveUnauthorizedError(error);
       }
 
-      if (status === Response.HTTP_UNPROCESSABLE_ENTITY) {
+      if (status === StatusCodes.HTTP_UNPROCESSABLE_ENTITY) {
         return this.showValidationErrors(error);
       }
 
@@ -53,6 +53,8 @@ export class HttpErrorInterceptor implements HttpInterceptor {
   }
 
   private resolveUnauthorizedError(error: Api) {
+    const isAuthenticated: boolean = this.authService.isAuthenticated();
+
     Swal.fire({
       title: 'Error',
       text: error.message,
@@ -61,8 +63,12 @@ export class HttpErrorInterceptor implements HttpInterceptor {
       allowOutsideClick: false
     }).then((result: any) => {
       if (result.value) {
+
         this.authService.logout();
-        this.router.navigate(['home']);
+
+        if (isAuthenticated) {
+          this.router.navigate(['home']);
+        }
       }
     });
   }

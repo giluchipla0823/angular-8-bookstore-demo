@@ -27,6 +27,11 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
+    path: 'authors',
+    loadChildren: () => import('./pages/authors/authors.module').then(m => m.AuthorsModule),
+    canActivate: [AuthGuard]
+  },
+  {
     path: '**',
     redirectTo: ''
   }

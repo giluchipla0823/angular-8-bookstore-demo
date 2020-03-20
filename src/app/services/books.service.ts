@@ -11,14 +11,14 @@ export class BooksService extends BaseService {
   getBooks(params?: any): Observable<Api> {
       const queryParams = this.resolveQueryParams(params);
 
-      return this.http.get<Api>(`${this.BASE_URL}v1/books${queryParams}`);
+      return this.http.get<Api>(`${this.API_URL_V1}books${queryParams}`);
   }
 
 
   getBook(id: number, params?: any): Observable<Api> {
     const queryParams = this.resolveQueryParams(params);
 
-    return this.http.get<Api>(`${this.BASE_URL}v1/books/${id}${queryParams}`);
+    return this.http.get<Api>(`${this.API_URL_V1}books/${id}${queryParams}`);
   }
 
   createOrUpdateBook(data: any, id?: number): Observable<Api> {
@@ -30,14 +30,14 @@ export class BooksService extends BaseService {
   }
 
   createBook(data: any): Observable<Api> {
-    return this.http.post<Api>(`${this.BASE_URL}v1/books`, data);
+    return this.http.post<Api>(`${this.API_URL_V1}books`, data);
   }
 
   updatedBook(data: any, id: number): Observable<Api> {
-    return this.http.put<Api>(`${this.BASE_URL}v1/books/${id}`, data);
+    return this.http.put<Api>(`${this.API_URL_V1}books/${id}`, data);
   }
 
   deleteBook(id: number): Observable<Api> {
-    return this.http.delete<Api>(`${this.BASE_URL}v1/books/${id}`);
+    return this.http.delete<Api>(`${this.API_URL_V1}books/${id}`);
   }
 }

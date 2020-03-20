@@ -2,7 +2,7 @@ import { Api } from '../interfaces/api.interface';
 
 declare var $: any;
 
-export class Datatables {
+export class DatatablesUtils {
 
     static DOM: string = `<\'hide\'lt><\'row\'<\'col-sm-12\'tr>><\'hide\'ip>`;
     static LENGTH_MENU: any[] = [[10, 25, 50, 100, -1], [10, 25, 50, 100, 'Todos']];

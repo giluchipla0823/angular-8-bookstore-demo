@@ -1,16 +1,16 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-
 import { map } from 'rxjs/operators';
 import { Api } from '../interfaces/api.interface';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  BASE_URL: string = 'http://127.0.0.1:8000/api/';
+  BASE_URL: string = environment.BASE_URL;
   token: string;
   user: any;
   private authenticated: boolean = false;

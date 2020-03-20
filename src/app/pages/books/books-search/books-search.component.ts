@@ -1,10 +1,10 @@
 import { Component, OnInit, AfterViewInit, ViewChild, Output, EventEmitter } from '@angular/core';
-import { AuthorsService } from '../../services/authors.service';
-import { Form } from '../../interfaces/form.interface';
+import { AuthorsService } from '../../../services/authors.service';
+import { Form } from '../../../interfaces/form.interface';
 
-import { Select2 as Select2Utils } from '../../utils/Select2';
-import { Select2Data } from '../../interfaces/select2-data.interface';
-import { Api } from '../../interfaces/api.interface';
+import { Select2 as Select2Utils } from '../../../utils/Select2';
+import { Select2Data } from '../../../interfaces/select2-data.interface';
+import { Api } from '../../../interfaces/api.interface';
 import { Select2OptionData } from 'ng2-select2';
 import { Author } from 'src/app/models/author.model';
 

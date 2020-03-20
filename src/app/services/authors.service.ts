@@ -9,6 +9,6 @@ import { Api } from '../interfaces/api.interface';
 export class AuthorsService extends BaseService {
 
   getAuthors(): Observable<Api> {
-    return this.http.get<Api>(`${this.BASE_URL}v1/authors`);
+    return this.http.get<Api>(`${this.API_URL_V1}authors`);
   }
 }

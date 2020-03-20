@@ -1,18 +1,18 @@
 import { Component, OnInit, EventEmitter, Input, Output } from '@angular/core';
-import { BooksService } from '../../services/books.service';
-import { AuthorsService } from '../../services/authors.service';
-import { GenresService } from '../../services/genres.service';
+import { BooksService } from '../../../services/books.service';
+import { AuthorsService } from '../../../services/authors.service';
+import { GenresService } from '../../../services/genres.service';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { Select2OptionData } from 'ng2-select2';
-import { Api } from '../../interfaces/api.interface';
+import { Api } from '../../../interfaces/api.interface';
 import { Author } from 'src/app/models/author.model';
 import Swal from 'sweetalert2';
-import { extractColumn } from '../../utils/Array';
-import Patterns from '../../utils/Patterns';
+import { extractColumn } from '../../../utils/Array';
+import Patterns from '../../../utils/Patterns';
 import { BsModalRef } from 'ngx-bootstrap';
-import { Select2Data } from '../../interfaces/select2-data.interface';
-import { Select2 as Select2Utils } from '../../utils/Select2';
-import { ReactiveForm } from '../../utils/ReactiveForm';
+import { Select2Data } from '../../../interfaces/select2-data.interface';
+import { Select2 as Select2Utils } from '../../../utils/Select2';
+import { ReactiveForm } from '../../../utils/ReactiveForm';
 
 @Component({
   selector: 'app-books-form',

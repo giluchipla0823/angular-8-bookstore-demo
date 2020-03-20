@@ -9,6 +9,6 @@ import { Api } from '../interfaces/api.interface';
 export class GenresService extends BaseService {
 
   getGenres(): Observable<Api> {
-    return this.http.get<Api>(`${this.BASE_URL}v1/genres`);
+    return this.http.get<Api>(`${this.API_URL_V1}genres`);
   }
 }
